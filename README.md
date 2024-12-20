@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Fish Clicker Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A fun incremental clicker game where you click fish to earn points, with various bonus mechanics and special fish types.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Main clickable fish that changes appearance every minute
+- Multiple types of bonus fish:
+  - Regular bonus fish that give percentage-based rewards
+  - Golden fish with larger percentage-based bonuses
+  - Clicker fish that give temporary click multipliers
+- Dark/Light theme support
+- Sound effects with toggleable audio
+- Persistent progress saving
+- Play time tracking
+- Animated click feedback
+- Responsive design
 
-### `npm start`
+## Game Mechanics
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Main Fish
+- Click the central fish to earn points
+- Fish appearance changes every minute
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Bonus Fish Types
+1. **Regular Bonus Fish**
+   - Falls from the sky every 10 seconds
+   - Gives 10% of your current score as bonus
 
-### `npm test`
+2. **Golden Fish**
+   - Appears every 30 seconds
+   - Provides 20-50% of your current score as bonus
+   - Features special golden animations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Clicker Fish**
+   - Spawns every minute
+   - Grants 1-100 bonus clicks per click for 25 seconds
+   - Appears with green glow effect
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Installation steps would go here - need package.json to provide accurate steps]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Development
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Development setup instructions would go here - need package.json to provide accurate commands]
 
-### `npm run eject`
+## Technologies Used
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React
+- Framer Motion for animations
+- Electron for desktop app
+- Steam integration
+- Local storage for progress saving
+- React Hot Toast for notifications
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## License
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[License information would go here]
