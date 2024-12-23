@@ -76,6 +76,9 @@
   },
   "scripts": {
     "start": "node scripts/launch.js",
+    "build:prod": "node scripts/productionBuild.js",
+    "build:demo:prod": "node scripts/demoBuild.js",
+    "---------------------------------------------": "",
     "start:demo": "concurrently -k \"set REACT_APP_DEMO=true && set REACT_APP_DEV=true && npm run start:renderer\" \"npm run start:main\"",
     "start:main": "wait-on tcp:3000 && electron .",
     "start:renderer": "set REACT_APP_DEMO=false && set REACT_APP_DEV=true && react-scripts start",
@@ -84,9 +87,7 @@
     "build:demo": "set REACT_APP_DEMO=true && react-scripts build",
     "pack": "electron-builder --dir",
     "package": "node automations/package.js",
-    "test": "jest src/",
-    "build:prod": "node scripts/productionBuild.js",
-    "build:demo:prod": "node scripts/demoBuild.js"
+    "test": "jest src/"
   },
   "eslintConfig": {
     "extends": [

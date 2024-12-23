@@ -29,13 +29,71 @@ An addictive idle/clicker game where you catch fish, build combos, and discover 
 
 ## Installation
 
+## Running Locally
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm (comes with Node.js)
+- Git
+
+### Setup
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/fish.git
+cd fish
 ```
 
-## Development
-
-### Available Scripts
-
+2. Install dependencies
+```bash
+npm install
 ```
+
+3. Create a steam_appid.txt file in the root directory
+```bash
+echo "480" > steam_appid.txt
+```
+
+### Running the Game
+
+#### Development Mode
+```bash
+# Start the game in development mode
+npm start
+
+# Start the demo version
+npm run start:demo
+```
+
+#### Production Testing
+```bash
+# Build and package the full version
+npm run build:prod
+
+# Build and package the demo version
+npm run build:demo:prod
+```
+
+### Common Issues
+
+1. **Steam Integration**
+   - Make sure Steam is running
+   - Ensure steam_appid.txt is present
+   - Steam overlay requires running as a packaged app
+
+2. **Build Issues**
+   - Run `npm run clean` to clear build folders
+   - Ensure all dependencies are installed
+   - Check Node.js version compatibility
+
+### Development Tips
+
+- Use the demo mode for testing features without affecting your main save
+- Hot reloading is enabled in development mode
+- Check the console (Ctrl+Shift+I) for debugging
+- Use `localStorage.clear()` in the console to reset progress
+
 
 ### Building
 
