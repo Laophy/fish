@@ -89,4 +89,17 @@ You'll be prompted for confirmation if a build with the same version exists.
 
 ## License
 
-[License information]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### Third-Party Licenses
+
+This project makes use of several third-party libraries and tools, each of which is subject to its own license terms. Below is a list of some of the key third-party dependencies and their respective licenses:
+
+- **React**: [MIT License](https://github.com/facebook/react/blob/main/LICENSE)
+- **Electron**: [MIT License](https://github.com/electron/electron/blob/main/LICENSE)
+- **Framer Motion**: [MIT License](https://github.com/framer/motion/blob/main/LICENSE)
+- **Steamworks.js**: [MIT License](https://github.com/greenheartgames/greenworks/blob/master/LICENSE)
+- **Archiver**: [MIT License](https://github.com/archiverjs/node-archiver/blob/master/LICENSE)
+- **Ant Design**: [MIT License](https://github.com/ant-design/ant-design/blob/master/LICENSE)
+
+For a complete list of dependencies and their licenses, please refer to the `package.json` file.
