@@ -1,41 +1,53 @@
-# Fish Clicker Game
+# Fish
 
-A fun incremental clicker game where you click fish to earn points, with various bonus mechanics and special fish types.
+An addictive idle/clicker game where you catch fish, build combos, and discover rare specimens. Manage your upgrades wisely and watch out for cursed fish!
 
 ## Features
 
-- Main clickable fish that changes appearance every minute
-- Multiple types of bonus fish:
-  - Regular bonus fish that give percentage-based rewards
-  - Golden fish with larger percentage-based bonuses
-  - Clicker fish that give temporary click multipliers
-- Dark/Light theme support
-- Sound effects with toggleable audio
+- Click to catch fish and build powerful combos
+- Multiple special fish types:
+  - Golden Fish: Percentage-based bonuses from your total catch
+  - Clicker Fish: Temporary click multipliers
+  - Frenzy Fish: Triggers rapid fish spawning mode
+  - Curse Fish: Removes active bonuses - catch with caution!
+- Extensive upgrade system:
+  - Click Power: Increase base catch rate
+  - Multiplier: Enhance all earnings
+  - Super Net: Add bonus fish per click
+  - Auto-Clicker: Automate your fishing
+  - Fish Magnet: Keep special fish around longer
+  - Lucky Fisher: Increase special fish spawns
+  - Combo Master: Extend your combo duration
+- Dark/Light theme with smooth transitions
+- Sound effects with toggle control
+- Fish collection system
+- Achievement tracking
 - Persistent progress saving
 - Play time tracking
 - Animated click feedback
-- Responsive design
+- Steam integration
+
+## Installation
+
+```
+
+## Development
+
+### Available Scripts
+
+```
+
+### Building
+
+#### Production Builds
+
+Builds are created in the `production` folder:
+- Production: `fish_VERSION.zip`
+- Demo: `fish_VERSION_demo.zip`
+
+You'll be prompted for confirmation if a build with the same version exists.
 
 ## Game Mechanics
-
-### Main Fish
-- Click the central fish to earn points
-- Fish appearance changes every minute
-
-### Bonus Fish Types
-1. **Regular Bonus Fish**
-   - Falls from the sky every 10 seconds
-   - Gives 10% of your current score as bonus
-
-2. **Golden Fish**
-   - Appears every 30 seconds
-   - Provides 20-50% of your current score as bonus
-   - Features special golden animations
-
-3. **Clicker Fish**
-   - Spawns every minute
-   - Grants 1-100 bonus clicks per click for 25 seconds
-   - Appears with green glow effect
 
 ### Fish Types
 - **Regular Fish**: Base clicking rewards
@@ -66,29 +78,15 @@ A fun incremental clicker game where you click fish to earn points, with various
 - **Lucky Fisher**: Boosts special fish spawn rates
 - **Combo Master**: Lengthens combo timer
 
-## Installation
-
-[Installation steps would go here - need package.json to provide accurate steps]
-
-## Development
-
-[Development setup instructions would go here - need package.json to provide accurate commands]
-
-## Technologies Used
+## Technologies
 
 - React
-- Framer Motion for animations
-- Electron for desktop app
-- Steam integration
-- Local storage for progress saving
-- React Hot Toast for notifications
+- Electron
+- Framer Motion
+- Steam SDK Integration
+- React Hot Toast
+- Local Storage
 
 ## License
 
-[License information would go here]
-
-Builds are created in the `production` folder:
-- Production: `fish_VERSION.zip`
-- Demo: `fish_VERSION_demo.zip`
-
-You'll be prompted for confirmation if a build with the same version exists.
+[License information]
