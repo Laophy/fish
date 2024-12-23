@@ -8,7 +8,7 @@ const readline = require("readline");
 const APP_NAME = packageJson.name;
 const VERSION = packageJson.version;
 const BUILD_DIR = path.join(__dirname, "../production");
-const TARGET_DIR = path.join(BUILD_DIR, `${APP_NAME}_${VERSION}`);
+const TARGET_DIR = path.join(BUILD_DIR, `${APP_NAME}_${VERSION}_demo`);
 const DIST_DIR = path.join(__dirname, "../dist/win-unpacked");
 
 // Create readline interface for user input
@@ -27,12 +27,12 @@ async function checkAndCreateDirectory() {
     fs.mkdirSync(BUILD_DIR);
   }
 
-  const zipPath = path.join(BUILD_DIR, `${APP_NAME}_${VERSION}.zip`);
+  const zipPath = path.join(BUILD_DIR, `${APP_NAME}_${VERSION}_demo.zip`);
 
   // Check if zip file already exists
   if (fs.existsSync(zipPath)) {
     const answer = await askQuestion(
-      `Version ${VERSION} already exists (${APP_NAME}_${VERSION}.zip). Would you like to overwrite? (Y/N): `
+      `Demo version ${VERSION} already exists (${APP_NAME}_${VERSION}_demo.zip). Would you like to overwrite? (Y/N): `
     );
 
     if (answer.toLowerCase() !== "y") {
@@ -71,8 +71,8 @@ async function main() {
     await checkAndCreateDirectory();
 
     // Create build
-    console.log("Building application...");
-    execSync("npm run build", { stdio: "inherit" });
+    console.log("Building demo application...");
+    execSync("npm run build:demo", { stdio: "inherit" });
 
     // Run electron-builder
     console.log("Running electron-builder...");
@@ -87,13 +87,14 @@ async function main() {
 
     // Create zip file
     console.log("Creating zip archive...");
-    const zipPath = path.join(BUILD_DIR, `${APP_NAME}_${VERSION}.zip`);
+    const zipPath = path.join(BUILD_DIR, `${APP_NAME}_${VERSION}_demo.zip`);
 
-    // Wait for zip creation to complete
     await createZip(TARGET_DIR, zipPath);
 
-    console.log(`\nBuild complete! Output: production/${APP_NAME}_${VERSION}`);
-    console.log(`Zip file created: production/${APP_NAME}_${VERSION}.zip`);
+    console.log(
+      `\nDemo build complete! Output: production/${APP_NAME}_${VERSION}_demo`
+    );
+    console.log(`Zip file created: production/${APP_NAME}_${VERSION}_demo.zip`);
 
     // Clean up folders
     console.log("Cleaning up build folders...");
@@ -106,7 +107,7 @@ async function main() {
 
     rl.close();
   } catch (error) {
-    console.error("Build failed:", error);
+    console.error("Demo build failed:", error);
     // Cleanup on failure
     if (fs.existsSync(TARGET_DIR)) {
       fs.rmSync(TARGET_DIR, { recursive: true });
@@ -119,7 +120,7 @@ async function main() {
   }
 }
 
-// Run the main function and properly handle the promise
+// Run the main function
 main().catch((error) => {
   console.error("Unexpected error:", error);
   rl.close();

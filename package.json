@@ -85,7 +85,8 @@
     "pack": "electron-builder --dir",
     "package": "node automations/package.js",
     "test": "jest src/",
-    "build:prod": "node scripts/productionBuild.js"
+    "build:prod": "node scripts/productionBuild.js",
+    "build:demo:prod": "node scripts/demoBuild.js"
   },
   "eslintConfig": {
     "extends": [
@@ -109,6 +110,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.23.6",
     "@babel/preset-react": "^7.23.3",
+    "archiver": "^7.0.1",
     "babel-jest": "^29.7.0",
     "electron": "^28.0.0",
     "electron-builder": "^23.6.0",
