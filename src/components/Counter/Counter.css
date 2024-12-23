@@ -1,0 +1,10 @@
+.counter {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.counter.frenzy-active {
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+} 

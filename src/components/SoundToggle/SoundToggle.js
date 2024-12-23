@@ -1,51 +1,64 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTheme } from "../../context/ThemeContext";
 import { useSound } from "../../context/SoundContext";
+import { useTheme } from "../../context/ThemeContext";
+
+const SoundOnIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+  </svg>
+);
+
+const SoundOffIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+    <line x1="23" y1="9" x2="17" y2="15" />
+    <line x1="17" y1="9" x2="23" y2="15" />
+  </svg>
+);
 
 export function SoundToggle() {
-  const { isDarkMode } = useTheme();
   const { isSoundEnabled, toggleSound } = useSound();
+  const { isDarkMode } = useTheme();
 
   return (
-    <motion.div
+    <motion.button
+      onClick={toggleSound}
       style={{
         position: "fixed",
         top: "20px",
-        left: "20px",
-        backgroundColor: isDarkMode
-          ? "rgba(0, 0, 0, 0.2)"
-          : "rgba(255, 255, 255, 0.2)",
-        border: `1px solid ${
-          isDarkMode ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
-        }`,
-        borderRadius: "50%",
-        width: "40px",
-        height: "40px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        right: "60px",
+        background: "none",
+        border: "none",
         cursor: "pointer",
+        color: isDarkMode ? "#fff" : "#1c2026",
         zIndex: 1000,
-        backdropFilter: "blur(5px)",
-        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
       }}
-      onClick={toggleSound}
       whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.9 }}
     >
-      <motion.img
-        src={isSoundEnabled ? "/icons/sound-on.svg" : "/icons/sound-off.svg"}
-        alt={isSoundEnabled ? "Sound On" : "Sound Off"}
-        style={{
-          width: "24px",
-          height: "24px",
-          filter: isDarkMode ? "invert(1)" : "none",
-        }}
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      />
-    </motion.div>
+      {isSoundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
+    </motion.button>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export function ClickFeedback({ x, y, amount = 1 }) {
   return (
@@ -22,7 +22,7 @@ export function ClickFeedback({ x, y, amount = 1 }) {
         filter: "drop-shadow(0 0 2px rgba(255,255,255,0.5))",
       }}
     >
-      +{amount}
+      +{Math.floor(amount).toLocaleString()}
     </motion.div>
   );
 }

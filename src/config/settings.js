@@ -7,20 +7,25 @@ export const settings = {
     changeInterval: 60000,
   },
   fish: {
-    spawnInterval: 10000,
+    spawnInterval: 5000,
     bonusMultiplier: 0.1,
-    fallDuration: 8,
+    fallDuration: 4,
   },
   goldenFish: {
-    spawnInterval: 30000,
+    spawnInterval: 15000,
     minBonus: 20,
     maxBonus: 50,
-    fallDuration: 12,
+    fallDuration: 2,
   },
   clickerFish: {
-    spawnInterval: 60000, // Every minute
+    spawnInterval: 60000,
     minClicks: 1,
     maxClicks: 100,
+    fallDuration: 4,
+  },
+  curseFish: {
+    spawnInterval: 30000,
+    fallDuration: 3.5,
   },
 };
 

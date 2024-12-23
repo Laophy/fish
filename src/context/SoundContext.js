@@ -1,29 +1,72 @@
-import React, { createContext, useContext, useRef } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { settings } from "../config/settings";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 
 const SoundContext = createContext();
 
-export function SoundProvider({ children }) {
-  const [isSoundEnabled, setSoundEnabled] = useLocalStorage(
-    "soundEnabled",
-    true
-  );
-  const audioRef = useRef(new Audio("/sounds/click.mp3"));
-  audioRef.current.volume = settings.sound.volume;
+// Create a pool of audio elements to reuse
+const AUDIO_POOL_SIZE = 5;
+const createAudioPool = () => {
+  const pool = [];
+  for (let i = 0; i < AUDIO_POOL_SIZE; i++) {
+    const audio = new Audio();
+    audio.src = "./sounds/click.mp3";
+    audio.volume = 0.3;
+    pool.push(audio);
+  }
+  return pool;
+};
 
-  const playClickSound = () => {
-    if (isSoundEnabled) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
-  };
+export function SoundProvider({ children }) {
+  const [isSoundEnabled, setIsSoundEnabled] = useState(() => {
+    const saved = localStorage.getItem("isSoundEnabled");
+    return saved !== null ? JSON.parse(saved) : true;
+  });
+
+  const audioPool = useRef(createAudioPool());
+  const currentAudioIndex = useRef(0);
+  const lastPlayTime = useRef(0);
+
+  useEffect(() => {
+    localStorage.setItem("isSoundEnabled", JSON.stringify(isSoundEnabled));
+  }, [isSoundEnabled]);
 
   const toggleSound = () => {
-    setSoundEnabled(!isSoundEnabled);
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
+    setIsSoundEnabled((prev) => !prev);
   };
+
+  const playClickSound = () => {
+    if (!isSoundEnabled) return;
+
+    // Throttle sound playback to maximum once every 50ms
+    const now = Date.now();
+    if (now - lastPlayTime.current < 50) return;
+    lastPlayTime.current = now;
+
+    // Reuse audio elements from the pool
+    const audio = audioPool.current[currentAudioIndex.current];
+    currentAudioIndex.current =
+      (currentAudioIndex.current + 1) % AUDIO_POOL_SIZE;
+
+    // Reset and play
+    audio.currentTime = 0;
+    audio.play().catch((err) => console.log("Sound play error:", err));
+  };
+
+  // Clean up audio elements on unmount
+  useEffect(() => {
+    return () => {
+      audioPool.current.forEach((audio) => {
+        audio.pause();
+        audio.src = "";
+      });
+      audioPool.current = [];
+    };
+  }, []);
 
   return (
     <SoundContext.Provider

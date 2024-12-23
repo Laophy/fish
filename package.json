@@ -4,6 +4,11 @@
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
+  "description": "A fishing idle game",
+  "author": {
+    "name": "Lake Country Games",
+    "email": "lakecountrygames@gmail.com"
+  },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@antimatter-dimensions/notations": "^3.2.0",
@@ -39,12 +44,15 @@
   "build": {
     "appId": "com.lakecountrygames.fisher.app",
     "artifactName": "Fisher ${version}.${ext}",
-    "steamAppId": "2940220",
     "files": [
       "steam_appid.txt",
       "build/**/*",
       "node_modules/**/*"
     ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
     "extraResources": [
       {
         "from": "steam_appid.txt",
@@ -52,9 +60,19 @@
       },
       {
         "from": "public/sounds",
-        "to": "app/build/sounds"
+        "to": "sounds"
       }
-    ]
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "protocols": {
+      "name": "Fisher",
+      "schemes": [
+        "fisher"
+      ]
+    }
   },
   "scripts": {
     "start": "node scripts/launch.js",
@@ -65,7 +83,7 @@
     "build": "set REACT_APP_DEMO=false && react-scripts build",
     "build:demo": "set REACT_APP_DEMO=true && react-scripts build",
     "pack": "electron-builder --dir",
-    "package": "sh ./automations/package.sh",
+    "package": "node automations/package.js",
     "test": "jest src/"
   },
   "eslintConfig": {
