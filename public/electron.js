@@ -28,7 +28,7 @@ const CONFIG = {
 let mainWindow = null;
 let steamClient = null;
 const store = new Store();
-const { app, BrowserWindow, globalShortcut, ipcMain } = electron;
+const { app, BrowserWindow, globalShortcut, ipcMain, screen } = electron;
 
 /**
  * App Performance Settings
@@ -38,7 +38,6 @@ const setupAppSettings = () => {
     "in-process-gpu",
     "disable-direct-composition",
     "disable-renderer-backgrounding",
-    "disable-audio-output",
     "disable-background-timer-throttling",
     "disable-accelerated-2d-canvas",
     "disable-accelerated-mjpeg-decode",
@@ -88,27 +87,60 @@ const setupSteamIPC = () => {
  * Window Management
  */
 const createWindow = () => {
-  // Restore window state or use defaults
-  const windowState = store.get("windowState", {
-    ...CONFIG.WINDOW_DEFAULTS,
-    isMaximized: true,
-  });
+  // Get screen dimensions
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width, height } = primaryDisplay.workAreaSize;
 
-  mainWindow = new BrowserWindow({
-    ...windowState,
+  // Set window dimensions based on mode
+  const windowConfig = isDev
+    ? {
+        x: 0,
+        y: 0,
+        width: Math.floor(width / 2),
+        height: height,
+      }
+    : {
+        width: 1250,
+        height: 700,
+        minWidth: 800,
+        minHeight: 600,
+        show: false,
+        center: true,
+      };
+
+  const mainWindow = new BrowserWindow({
+    ...windowConfig,
+    icon: path.join(__dirname, "../build/favicon.ico"),
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "electron-preload.js"),
-      nodeIntegration: false,
-      contextIsolation: true,
-      backgroundThrottling: false,
-      pageVisibility: true,
-      sandbox: true,
-      webSecurity: true,
+      nodeIntegration: true,
+      contextIsolation: false,
+      webSecurity: false,
+      allowRunningInsecureContent: true,
+      enableRemoteModule: true,
+      webAudio: true,
+      fullscreen: true,
     },
-    autoHideMenuBar: true,
-    show: false,
-    icon: path.join(__dirname, "favicon.ico"),
   });
+
+  // Always remove menu regardless of dev/prod mode
+  mainWindow.removeMenu();
+
+  if (isDev) {
+    // Development mode: Open dev tools in a separate window
+    mainWindow.webContents.openDevTools({
+      mode: "detach", // This makes dev tools open in a separate window
+    });
+  } else {
+    // Production mode: Show window when ready
+    mainWindow.once("ready-to-show", () => {
+      mainWindow.show();
+      if (windowConfig.isMaximized) {
+        mainWindow.maximize();
+      }
+    });
+  }
 
   // Save window state on close
   ["resize", "move", "close"].forEach((event) => {
@@ -127,18 +159,13 @@ const createWindow = () => {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
-  // Open DevTools in development mode
-  if (isDev) {
-    mainWindow.webContents.openDevTools({ mode: "detach" });
-  }
-
   // Setup window events
   setupWindowEvents();
 
-  if (windowState.isMaximized) {
-    mainWindow.maximize();
-  }
-  mainWindow.show();
+  // Prevent window from leaving fullscreen
+  mainWindow.on("leave-full-screen", () => {
+    mainWindow.setFullScreen(true);
+  });
 
   return mainWindow;
 };

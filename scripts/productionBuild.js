@@ -57,12 +57,41 @@ async function createZip(sourceDir, outPath) {
 
   return new Promise((resolve, reject) => {
     archive
-      .directory(path.join(sourceDir, "win-unpacked"), false)
+      .directory(sourceDir, false)
       .on("error", (err) => reject(err))
       .pipe(stream);
 
     stream.on("close", () => resolve());
     archive.finalize();
+  });
+}
+
+function cleanupOldVersions(currentVersion) {
+  const files = fs.readdirSync(BUILD_DIR);
+  const versionPattern = new RegExp(`^${APP_NAME}_\\d+\\.\\d+\\.\\d+`);
+
+  // Find and remove old version folders, keeping only the current version
+  files.forEach((file) => {
+    const fullPath = path.join(BUILD_DIR, file);
+    // Skip if it's the current version's folder or zip file
+    if (
+      file === `${APP_NAME}_${currentVersion}` ||
+      file === `${APP_NAME}_${currentVersion}.zip`
+    ) {
+      return;
+    }
+
+    // Only remove files/folders that match the version pattern (e.g., name_1.2.3)
+    if (versionPattern.test(file)) {
+      if (fs.statSync(fullPath).isDirectory() || file.endsWith(".zip")) {
+        console.log(`Removing old version: ${file}`);
+        if (fs.statSync(fullPath).isDirectory()) {
+          fs.rmSync(fullPath, { recursive: true });
+        } else {
+          fs.unlinkSync(fullPath);
+        }
+      }
+    }
   });
 }
 
@@ -83,7 +112,12 @@ async function main() {
 
     // Move electron-builder output to version directory
     console.log("Moving electron build to production folder...");
-    fs.renameSync(DIST_DIR, path.join(TARGET_DIR, "win-unpacked"));
+    const winUnpackedContents = fs.readdirSync(DIST_DIR);
+    winUnpackedContents.forEach((item) => {
+      const sourcePath = path.join(DIST_DIR, item);
+      const targetPath = path.join(TARGET_DIR, item);
+      fs.renameSync(sourcePath, targetPath);
+    });
 
     // Create zip file
     console.log("Creating zip archive...");
@@ -100,9 +134,9 @@ async function main() {
     if (fs.existsSync(path.join(__dirname, "../dist"))) {
       fs.rmSync(path.join(__dirname, "../dist"), { recursive: true });
     }
-    if (fs.existsSync(TARGET_DIR)) {
-      fs.rmSync(TARGET_DIR, { recursive: true });
-    }
+
+    // Clean up old versions but keep the current one
+    cleanupOldVersions(VERSION);
 
     rl.close();
   } catch (error) {

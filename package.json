@@ -23,6 +23,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lz-string": "^1.5.0",
     "moment": "^2.30.1",
+    "path": "^0.12.7",
     "rc-animate": "^3.1.1",
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
@@ -63,15 +64,22 @@
         "to": "sounds"
       }
     ],
-    "win": {
-      "target": "nsis",
-      "icon": "build/icon.ico"
-    },
     "protocols": {
       "name": "Fish",
       "schemes": [
         "fish"
       ]
+    },
+    "icon": "build/favicon_256.ico",
+    "win": {
+      "target": "nsis",
+      "icon": "build/favicon_256.ico"
+    },
+    "mac": {
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "icon": "build/icons"
     }
   },
   "scripts": {
